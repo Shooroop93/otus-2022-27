@@ -4,7 +4,7 @@ plugins {
 }
 
 allprojects {
-    group "ru.sergeev"
+    group "ru.sergeev.homework"
 
     repositories {
         mavenLocal()

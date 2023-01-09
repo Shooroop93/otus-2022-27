@@ -1,4 +1,4 @@
-package ru.sergeev;
+package ru.sergeev.homework;
 
 import com.google.common.collect.Lists;
 
