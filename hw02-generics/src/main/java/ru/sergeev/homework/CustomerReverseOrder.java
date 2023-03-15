@@ -1,10 +1,11 @@
 package ru.sergeev.homework;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class CustomerReverseOrder {
 
-    private final LinkedList<Customer> linkedList = new LinkedList<>();
+    private final Deque<Customer> linkedList = new ArrayDeque<>();
 
     public void add(Customer customer) {
         linkedList.push(customer);
