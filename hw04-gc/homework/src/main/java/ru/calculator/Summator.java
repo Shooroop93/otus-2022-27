@@ -6,11 +6,14 @@ public class Summator {
     private Integer prevPrevValue = 0;
     private Integer sumLastThreeValues = 0;
     private Integer someValue = 0;
-    private Integer sizeValues = 0;
+    private Integer size = 0;
 
     //!!! сигнатуру метода менять нельзя
     public void calc(Data data) {
-        sizeValues += 1;
+        size += 1;
+        if (size % 6_600_000 == 0) {
+            size = 0;
+        }
 
         sum += data.getValue();
 
@@ -21,7 +24,7 @@ public class Summator {
 
         for (var idx = 0; idx < 3; idx++) {
             someValue += (sumLastThreeValues * sumLastThreeValues / (data.getValue() + 1) - sum);
-            someValue = Math.abs(someValue) + sizeValues;
+            someValue = Math.abs(someValue) + size;
         }
     }
 
