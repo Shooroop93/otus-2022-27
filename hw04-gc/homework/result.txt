@@ -44,81 +44,66 @@
 5) spend msec:8442, sec:8
 
                                             После Оптимизации:
-Оптимально: 2048
+Оптимально: -Xms8m -Xmx8m
+    Можно конечно -Xms6m -Xmx6m, но -Xms8m -Xmx8m выглядит как-то постабильнее по 5 прогонам
+
+                        -Xms2m
+                        -Xmx2m
+Exception: java.lang.OutOfMemoryError thrown from the UncaughtExceptionHandler in thread "main"
+Меньше уже нельзя ))))))
+                        -Xms3m
+                        -Xmx3m
+1) spend msec:660, sec:0
+2) spend msec:675, sec:0
+3) spend msec:686, sec:0
+4) spend msec:632, sec:0
+5) spend msec:723, sec:0
+                        -Xms4m
+                        -Xmx4m
+1) spend msec:659, sec:0
+2) spend msec:671, sec:0
+3) spend msec:632, sec:0
+4) spend msec:663, sec:0
+5) spend msec:610, sec:0
+                        -Xms6m
+                        -Xmx6m
+1) spend msec:489, sec:0
+2) spend msec:510, sec:0
+3) spend msec:519, sec:0
+4) spend msec:496, sec:0
+5) spend msec:512, sec:0
+                        -Xms8m
+                        -Xmx8m
+1) spend msec:499, sec:0
+2) spend msec:493, sec:0
+3) spend msec:508, sec:0
+4) spend msec:483, sec:0
+5) spend msec:485, sec:0
+                        -Xms128m
+                        -Xmx128m
+1) spend msec:492, sec:0
+2) spend msec:504, sec:0
+3) spend msec:484, sec:0
+4) spend msec:504, sec:0
+5) spend msec:486, sec:0
                         -Xms256m
                         -Xmx256m
-1) spend msec:6794, sec:6
-2) spend msec:6870, sec:6
-3) spend msec:6782, sec:6
-4) spend msec:6790, sec:6
-5) spend msec:6817, sec:6
-                        -Xms512m
-                        -Xmx512m
-1) spend msec:6184, sec:6
-2) spend msec:6193, sec:6
-3) spend msec:6231, sec:6
-4) spend msec:6302, sec:6
-5) spend msec:6319, sec:6
+1) spend msec:487, sec:0
+2) spend msec:504, sec:0
+3) spend msec:505, sec:0
+4) spend msec:488, sec:0
+5) spend msec:489, sec:0
                         -Xms1024m
                         -Xmx1024m
-1) spend msec:5129, sec:5
-2) spend msec:5069, sec:5
-3) spend msec:5111, sec:5
-4) spend msec:5183, sec:5
-5) spend msec:5101, sec:5
-                        -Xms1536m
-                        -Xmx1536m
-1) spend msec:3518, sec:3
-2) spend msec:3514, sec:3
-3) spend msec:3585, sec:3
-4) spend msec:3729, sec:3
-5) spend msec:3586, sec:3
-                        -Xms1792m
-                        -Xmx1792m
-1) spend msec:2980, sec:2
-2) spend msec:2892, sec:2
-3) spend msec:2875, sec:2
-4) spend msec:2968, sec:2
-5) spend msec:2947, sec:2
-                        -Xms1920m
-                        -Xmx1920m
-1) spend msec:2588, sec:2
-2) spend msec:2675, sec:2
-3) spend msec:2596, sec:2
-4) spend msec:2617, sec:2
-5) spend msec:2588, sec:2
+1) spend msec:482, sec:0
+2) spend msec:490, sec:0
+3) spend msec:507, sec:0
+4) spend msec:482, sec:0
+5) spend msec:484, sec:0
                         -Xms2048m
                         -Xmx2048m
-1) spend msec:3035, sec:3
-2) spend msec:2410, sec:2
-3) spend msec:2466, sec:2
-4) spend msec:2420, sec:2
-5) spend msec:2479, sec:2
-                        -Xms2176m
-                        -Xmx2176m
-1) spend msec:2567, sec:2
-2) spend msec:2498, sec:2
-3) spend msec:2554, sec:2
-4) spend msec:2504, sec:2
-5) spend msec:2556, sec:2
-                        -Xms2304m
-                        -Xmx2304m
-1) spend msec:2516, sec:2
-2) spend msec:2485, sec:2
-3) spend msec:2561, sec:2
-4) spend msec:2564, sec:2
-5) spend msec:2498, sec:2
-                        -Xms2560m
-                        -Xmx2560m
-1) spend msec:2601, sec:2
-2) spend msec:2530, sec:2
-3) spend msec:2606, sec:2
-4) spend msec:2557, sec:2
-5) spend msec:2560, sec:2
-                        -Xms3072m
-                        -Xmx3072m
-1) spend msec:2686, sec:2
-2) spend msec:2544, sec:2
-3) spend msec:2585, sec:2
-4) spend msec:2594, sec:2
-5) spend msec:2600, sec:2
+1) spend msec:484, sec:0
+2) spend msec:501, sec:0
+3) spend msec:490, sec:0
+4) spend msec:486, sec:0
+5) spend msec:494, sec:0
