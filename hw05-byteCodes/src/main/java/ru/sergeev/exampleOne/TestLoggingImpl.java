@@ -2,7 +2,7 @@ package ru.sergeev.exampleOne;
 
 import ru.sergeev.annotation.Log;
 
-public class TestLoggingImpl implements TestLoggingInterface {
+public class TestLoggingImpl implements TestLoggingInterfaceOne {
 
     @Log
     @Override

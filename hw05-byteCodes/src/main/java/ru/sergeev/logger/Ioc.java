@@ -1,34 +1,41 @@
 package ru.sergeev.logger;
 
-import ru.sergeev.FatherInterfaceLogger;
 import ru.sergeev.annotation.Log;
-import ru.sergeev.exampleOne.TestLoggingImpl;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.Arrays;
+import java.util.*;
+
+import static java.text.MessageFormat.*;
+import static java.util.Arrays.*;
 
 public class Ioc<T> {
 
-    private T fatherInterfaceLogger;
+    private static List<String> methodList;
+    private final T objecT;
 
-    public Ioc(T fatherInterfaceLogger) {
-        this.fatherInterfaceLogger = fatherInterfaceLogger;
+    public Ioc(T object) {
+        this.objecT = object;
+        methodList = new ArrayList<>();
+
+        stream(objecT.getClass().getMethods())
+                .forEach(method -> {
+                    if (method.isAnnotationPresent(Log.class)) {
+                        methodList.add(nameHandler(method));
+                    }
+                });
     }
 
-    public static <T> T INSTANCE(Object testLogging) {
-        return (T) new Ioc(testLogging).createMyClass();
+    public static <T> T getInstance(Object object) {
+        return (T) new Ioc(object).createMyClass();
     }
 
     public T createMyClass() {
-        Class<?> aClass = fatherInterfaceLogger.getClass();
-
-        return (T) Proxy.newProxyInstance(Ioc.class.getClassLoader(),
-                aClass.getInterfaces(), new DemoInvocationHandler(fatherInterfaceLogger));
+        return (T) Proxy.newProxyInstance(Ioc.class.getClassLoader(), objecT.getClass().getInterfaces(), new DemoInvocationHandler(objecT));
     }
 
-    class DemoInvocationHandler <T> implements InvocationHandler {
+    class DemoInvocationHandler<T> implements InvocationHandler {
         private final T myClass;
 
         DemoInvocationHandler(T myClass) {
@@ -37,18 +44,22 @@ public class Ioc<T> {
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            if (myClass.getClass().getMethod(method.getName(), method.getParameterTypes()).isAnnotationPresent(Log.class)) {
-                System.out.println("\n");
-                System.out.println("Logger -_-_-_- [ " + "class: " + myClass + "method: " + method.getName() + ", args: " + Arrays.toString(args) + " ] -_-_-_-_");
-            }
+            if (methodList.contains(nameHandler(method))) printLogger(args);
             return method.invoke(myClass, args);
         }
+    }
 
-        @Override
-        public String toString() {
-            return "DemoInvocationHandler{" +
-                    "myClass=" + myClass +
-                    '}';
+    private String nameHandler(Method method) {
+        return format("{0}=={1}", method.getName(), Arrays.stream(method.getParameterTypes()).map(Class::getName).toList());
+    }
+
+    private void printLogger(Object[] args) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Logger --------> ");
+        for (Object arg : args) {
+            stringBuilder.append(arg + " ");
         }
+        stringBuilder.append("<--------");
+        System.out.println(stringBuilder);
     }
 }

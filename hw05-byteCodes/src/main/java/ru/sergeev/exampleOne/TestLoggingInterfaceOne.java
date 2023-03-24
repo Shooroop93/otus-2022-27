@@ -1,6 +1,6 @@
-package ru.sergeev;
+package ru.sergeev.exampleOne;
 
-public interface FatherInterfaceLogger {
+public interface TestLoggingInterfaceOne {
     void calculation(int param);
 
     void calculation(int paramOne, int paramTwo);
