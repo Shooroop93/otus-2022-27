@@ -2,6 +2,7 @@ package ru.sergeev.logger;
 
 import ru.sergeev.FatherInterfaceLogger;
 import ru.sergeev.annotation.Log;
+import ru.sergeev.exampleOne.TestLoggingImpl;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -10,16 +11,23 @@ import java.util.Arrays;
 
 public class Ioc {
 
-    private Ioc() {
+    FatherInterfaceLogger fatherInterfaceLogger;
+
+    public Ioc(FatherInterfaceLogger fatherInterfaceLogger) {
+        this.fatherInterfaceLogger = fatherInterfaceLogger;
     }
 
-    public static FatherInterfaceLogger createMyClass(FatherInterfaceLogger clazz) {
-        InvocationHandler handler = new DemoInvocationHandler(clazz);
+    public static FatherInterfaceLogger INSTANCE(FatherInterfaceLogger testLogging) {
+        return new Ioc(testLogging).createMyClass();
+    }
+
+    public FatherInterfaceLogger createMyClass() {
+        InvocationHandler handler = new DemoInvocationHandler(fatherInterfaceLogger);
         return (FatherInterfaceLogger) Proxy.newProxyInstance(Ioc.class.getClassLoader(),
                 new Class<?>[]{FatherInterfaceLogger.class}, handler);
     }
 
-    static class DemoInvocationHandler implements InvocationHandler {
+    class DemoInvocationHandler implements InvocationHandler {
         private final FatherInterfaceLogger myClass;
 
         DemoInvocationHandler(FatherInterfaceLogger myClass) {
