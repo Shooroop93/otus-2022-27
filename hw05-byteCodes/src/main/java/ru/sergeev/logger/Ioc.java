@@ -9,28 +9,29 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
 
-public class Ioc {
+public class Ioc<T> {
 
-    FatherInterfaceLogger fatherInterfaceLogger;
+    private T fatherInterfaceLogger;
 
-    public Ioc(FatherInterfaceLogger fatherInterfaceLogger) {
+    public Ioc(T fatherInterfaceLogger) {
         this.fatherInterfaceLogger = fatherInterfaceLogger;
     }
 
-    public static FatherInterfaceLogger INSTANCE(FatherInterfaceLogger testLogging) {
-        return new Ioc(testLogging).createMyClass();
+    public static <T> T INSTANCE(Object testLogging) {
+        return (T) new Ioc(testLogging).createMyClass();
     }
 
-    public FatherInterfaceLogger createMyClass() {
-        InvocationHandler handler = new DemoInvocationHandler(fatherInterfaceLogger);
-        return (FatherInterfaceLogger) Proxy.newProxyInstance(Ioc.class.getClassLoader(),
-                new Class<?>[]{FatherInterfaceLogger.class}, handler);
+    public T createMyClass() {
+        Class<?> aClass = fatherInterfaceLogger.getClass();
+
+        return (T) Proxy.newProxyInstance(Ioc.class.getClassLoader(),
+                aClass.getInterfaces(), new DemoInvocationHandler(fatherInterfaceLogger));
     }
 
-    class DemoInvocationHandler implements InvocationHandler {
-        private final FatherInterfaceLogger myClass;
+    class DemoInvocationHandler <T> implements InvocationHandler {
+        private final T myClass;
 
-        DemoInvocationHandler(FatherInterfaceLogger myClass) {
+        DemoInvocationHandler(T myClass) {
             this.myClass = myClass;
         }
 
