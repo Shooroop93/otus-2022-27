@@ -59,9 +59,8 @@ public class DataTemplateJdbc<T> implements DataTemplate<T> {
                             } catch (SQLException e) {
                                 throw new DataTemplateException(e);
                             }
-                        }).orElseThrow(
-                                () -> new RuntimeException("Unexpected error")
-                );
+                        })
+                .orElseThrow(() -> new RuntimeException("Unexpected error"));
     }
 
     @Override
@@ -118,6 +117,5 @@ public class DataTemplateJdbc<T> implements DataTemplate<T> {
         } catch (Exception e) {
             throw new DataTemplateException(e);
         }
-
     }
 }
