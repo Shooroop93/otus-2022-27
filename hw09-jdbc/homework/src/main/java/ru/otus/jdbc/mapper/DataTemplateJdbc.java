@@ -23,7 +23,7 @@ public class DataTemplateJdbc<T> implements DataTemplate<T> {
 
     private final DbExecutor dbExecutor;
     private final EntitySQLMetaData entitySQLMetaData;
-    private final EntityClassMetaData entityClassMetaData;
+    private final EntityClassMetaData<T> entityClassMetaData;
 
     public DataTemplateJdbc(DbExecutor dbExecutor, EntitySQLMetaData entitySQLMetaData, EntityClassMetaData entityClassMetaData) {
         this.dbExecutor = dbExecutor;
