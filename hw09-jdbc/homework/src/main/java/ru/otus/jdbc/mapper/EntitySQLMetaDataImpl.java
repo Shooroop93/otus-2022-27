@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.util.stream.Collectors;
 
 public class EntitySQLMetaDataImpl implements EntitySQLMetaData {
-    EntityClassMetaData<?> entityClassMetaData;
+    private final EntityClassMetaData<?> entityClassMetaData;
     private final String tableName;
     private final String columnNameOfId;
     private final String listColumnNamesWithoutId;
