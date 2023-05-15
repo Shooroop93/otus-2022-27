@@ -41,8 +41,12 @@ public class MyCache<K, V> implements HwCache<K, V> {
     }
 
     public void addEvent(K key, V value, String action) {
-        for (HwListener listener : listeners) {
-            listener.notify(key, value, action);
+        for (HwListener<K, V> listener : listeners) {
+            try {
+                listener.notify(key, value, action);
+            } catch (Exception e) {
+                // Игнорируем исключение
+            }
         }
     }
 }
