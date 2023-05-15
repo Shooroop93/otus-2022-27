@@ -42,16 +42,16 @@ public class DbServiceClientImpl implements DBServiceClient {
 
     @Override
     public Optional<Client> getClient(long id) {
-        var optionalClient = cache.get(id);
-        if (optionalClient != null) {
-            return Optional.of(optionalClient);
+        Client client = cache.get(id);
+        if (client != null) {
+            return Optional.of(client);
         }
 
         return transactionManager.doInReadOnlyTransaction(session -> {
             var clientOptional = clientDataTemplate.findById(session, id);
             log.info("client: {}", clientOptional);
-            var client = clientOptional.get();
-            cache.put(client.getId(), client);
+            var lamdaClient = clientOptional.get();
+            cache.put(lamdaClient.getId(), lamdaClient);
             return clientOptional;
         });
     }
@@ -60,6 +60,9 @@ public class DbServiceClientImpl implements DBServiceClient {
     public List<Client> findAll() {
         return transactionManager.doInReadOnlyTransaction(session -> {
             var clientList = clientDataTemplate.findAll(session);
+            clientList.forEach(client -> {
+                cache.put(client.getId(), client);
+            });
             log.info("clientList:{}", clientList);
             return clientList;
         });
