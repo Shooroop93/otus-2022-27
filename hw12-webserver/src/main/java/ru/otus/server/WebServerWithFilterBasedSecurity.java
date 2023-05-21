@@ -28,7 +28,6 @@ public class WebServerWithFilterBasedSecurity implements WebServer {
     private final Server server;
     private final AuthService authService;
 
-
     public WebServerWithFilterBasedSecurity(int port,
                                             AuthService authService,
                                             DBServiceClient dbServiceClient,
@@ -71,7 +70,6 @@ public class WebServerWithFilterBasedSecurity implements WebServer {
         server.setHandler(handlers);
         return server;
     }
-
 
     protected Handler applySecurity(ServletContextHandler servletContextHandler, String... paths) {
         servletContextHandler.addServlet(new ServletHolder(new LoginServlet(templateProcessor, authService)), "/login");

@@ -1,4 +1,3 @@
-
 create table client
 (
     id   bigserial not null primary key,
@@ -16,4 +15,3 @@ create table phone
     phone_number varchar(50),
     client_id bigint
 );
-

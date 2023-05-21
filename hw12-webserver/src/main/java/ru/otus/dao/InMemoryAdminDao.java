@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-
 public class InMemoryAdminDao implements AdminDao {
 
     private final Map<Long, Admin> admins;

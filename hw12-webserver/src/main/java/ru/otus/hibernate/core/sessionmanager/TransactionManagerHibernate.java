@@ -21,7 +21,6 @@ public class TransactionManagerHibernate implements TransactionManager {
         return doInTransaction(action, true);
     }
 
-
     private <T> T doInTransaction(TransactionAction<T> action, boolean readOnlyTran) {
         return wrapException(() -> {
             try (var session = sessionFactory.openSession()) {

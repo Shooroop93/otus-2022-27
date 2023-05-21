@@ -17,7 +17,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
 public class ClientsServlet extends HttpServlet {
 
     private static final String CLIENTS_PAGE_TEMPLATE = "clients.html";

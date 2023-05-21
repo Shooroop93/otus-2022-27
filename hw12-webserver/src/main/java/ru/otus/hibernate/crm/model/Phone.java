@@ -42,5 +42,3 @@ public class Phone implements Cloneable {
         return number;
     }
 }
-
-

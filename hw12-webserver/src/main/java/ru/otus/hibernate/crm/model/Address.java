@@ -34,5 +34,3 @@ public class Address implements Cloneable {
         return street;
     }
 }
-
-

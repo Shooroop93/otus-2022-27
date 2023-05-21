@@ -19,7 +19,6 @@ public class LoginServlet extends HttpServlet {
     private static final int MAX_INACTIVE_INTERVAL = 30;
     private static final String LOGIN_PAGE_TEMPLATE = "login.html";
 
-
     private final TemplateProcessor templateProcessor;
     private final AuthService authService;
 
@@ -28,13 +27,11 @@ public class LoginServlet extends HttpServlet {
         this.templateProcessor = templateProcessor;
     }
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         response.getWriter().println(templateProcessor.getPage(LOGIN_PAGE_TEMPLATE, Collections.emptyMap()));
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

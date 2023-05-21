@@ -5,7 +5,6 @@ import ru.otus.hibernate.crm.model.Phone;
 
 import java.util.stream.Collectors;
 
-
 public class ClientService {
     private final String id;
     private final String name;
