@@ -56,28 +56,12 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
             checkConfigClass(configClass);
             List<Method> methods = getOrderedMethods(configClass);
             Constructor<?> constructor = configClass.getDeclaredConstructor();
-            Object configClazz;
-
-            try {
-                configClazz = constructor.newInstance();
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                throw new RuntimeException("Не удалось создать экземпляр конфигурации", e);
-            }
+            Object configClazz = constructor.newInstance();
 
             for (Method method : methods) {
                 AppComponent annotation = method.getAnnotation(AppComponent.class);
                 checkComponent(annotation.name());
-                Object resultInvokeMethod;
-
-                try {
-                    if (method.getParameterCount() == 0) {
-                        resultInvokeMethod = method.invoke(configClazz);
-                    } else {
-                        resultInvokeMethod = method.invoke(configClazz, initParameters(method));
-                    }
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    throw new RuntimeException("Ошибка при вызове метода", e);
-                }
+                Object resultInvokeMethod = invokeMethod(configClazz, method);
 
                 if (resultInvokeMethod == null) {
                     throw new RuntimeException("Контекст не может быть настроен");
@@ -85,14 +69,14 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
 
                 if (appComponentsByName.put(annotation.name(), resultInvokeMethod) != null) {
                     throw new RuntimeException(String.format("Компонент с именем '%s' уже существует", annotation.name()));
-                } else {
-                    appComponentsByName.put(annotation.name(), resultInvokeMethod);
                 }
 
                 appComponents.add(resultInvokeMethod);
             }
         } catch (NoSuchMethodException | ClassNotFoundException e) {
             throw new RuntimeException("Контекст не может быть настроен", e);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException("Не удалось создать экземпляр конфигурации", e);
         }
     }
 
@@ -112,5 +96,17 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
         return Arrays.stream(method.getParameterTypes())
                 .map(this::getAppComponent)
                 .toArray();
+    }
+
+    private Object invokeMethod(Object configObject, Method method) throws ClassNotFoundException {
+        try {
+            if (method.getParameterCount() == 0) {
+                return method.invoke(configObject);
+            } else {
+                return method.invoke(configObject, initParameters(method));
+            }
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException("Ошибка при вызове метода", e);
+        }
     }
 }
